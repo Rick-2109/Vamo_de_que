@@ -87,7 +87,7 @@ var _modalDUNI={
   },
   car:{
     title:'🚗 App de corrida',
-    body:'Opção mais rápida · Chegada em 13 min · Custo ~R$ 20,00 · Disponível agora · 1.2kg de CO₂ por viagem.',
+    body:'Opção mais rápida · Chegada em 15 min · Custo ~R$ 15,00 · Disponível agora · 1.2kg de CO₂ por viagem.',
     num:'CAR',route:'APP DE CORRIDA',tag:'MAIS RÁPIDO',
     chegada:'13 min',prox:'Espera estimada',lot:'Disponível',lot2:'2 carros na área',tarifa:'~R$ 18,00',tar2:'Por corrida',
     buy:'Chamar corrida'
@@ -299,8 +299,8 @@ var _mapData={
     [-10.948498,-37.072755]
   ],
   alerts:[
-    {p:[-10.946967,-37.063041],icon:'!',bg:'#FF6C18',title:'Alagamento',body:'Av. Beira Mar',extra:'+15 min de atraso'},
-    {p:[-10.956530,-37.053551],icon:'Obra',bg:'#F5B81C',title:'Obras',body:'Av. Tancredo Neves',extra:'+7 min de atraso'}
+    {p:[-10.946967,-37.063041],icon:'⚠️',bg:'#FF6C18',title:'Alagamento',body:'Av. Beira Mar',extra:'+15 min de atraso'},
+    {p:[-10.956530,-37.053551],icon:'🏗️',bg:'#ffea8d',title:'Obras',body:'Av. Tancredo Neves',extra:'+7 min de atraso'}
   ],
   fuel:[
     {p:[-10.970646,-37.056297],name:'Petrox',kind:'gas',info:'Gasolina, etanol e diesel'},
@@ -456,7 +456,7 @@ function renderMapMode(mode){
       L.marker(a.p,{icon:h.mk(h.dot(a.icon,a.bg,a.icon==='Obra'?'#0B2D6A':'#fff'),34,34)})
         .addTo(_mapRouteLayer).bindPopup('<b>'+a.title+'</b><br>'+a.body+'<br><span style="color:#FF6C18;font-weight:600">'+a.extra+'</span>');
     });
-    var bus=L.marker(stops[0],{icon:h.mk(h.pill('100 1 CS1','#FF6C18','#fff'),115,32)}).addTo(_mapRouteLayer);
+    var bus=L.marker(stops[0],{icon:h.mk(h.pill('100 1 CS1','#FF6C18','#fff'),90,32)}).addTo(_mapRouteLayer);
     bus.bindPopup('<b>Ônibus 100 1 CS1</b><br>Em operação · 100% elétrico<br>Chegada estimada: 27 min');
     var bi=0,bd=1;
     _mapMoveTimer=setInterval(function(){
