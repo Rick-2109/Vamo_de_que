@@ -198,9 +198,16 @@ function selectModal(key){
 
 /* ── DARK MODE ── */
 var _dark=false;
+function updateThemeAssets(){
+  var homeLogo=document.getElementById('home-logo');
+  var profileLogo=document.getElementById('profile-logo');
+  if(homeLogo)homeLogo.src=_dark?'logo-vdark-sf.png':'logo-vlight-sf.png';
+  if(profileLogo)profileLogo.src=_dark?'icone-vdark-sf.png':'icone-vlight-sf.png';
+}
 function toggleDark(){
   _dark=!_dark;
   document.getElementById('phone').classList.toggle('dk',_dark);
+  updateThemeAssets();
   var ic=document.getElementById('dark-ic');
   var icPrf=document.getElementById('dark-ic-prf');
   var sunSvg='<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';

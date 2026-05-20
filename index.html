@@ -25,7 +25,7 @@
 <div class="page" id="pg-home">
   <div class="ahdr">
     <div>
-      <img src="https://cdn.discordapp.com/attachments/1498827310273663120/1506370597771546744/logo-v1-day.png?ex=6a0e0471&is=6a0cb2f1&hm=6256669c9a1680494ea62ec562e7330841732ebd2ddb6c385612ebb719adb7b7&" width="100" height="50">
+      <img id="home-logo" src="logo-vlight-sf.png" width="170" height="75" alt="Vamo de que">
     </div>
     <div style="display:flex;gap:8px">
       <button class="ibtn nb" onclick="goPage('pg-perfil')"><svg class="i19" style="color:var(--text)" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
@@ -35,8 +35,6 @@
   </div>
   <div class="hero">
     <div class="hero-g">Olá! Para onde vai hoje?</div>
-    <div class="hero-n"><span style="color:#9DC4FF">Vamo </span><span style="color:var(--orange)">de quê?</span></div>
-    <div class="hero-s">Conselheiro de deslocamento em Aracaju.</div>
     <div class="ctx-row">
       <div class="cpill"><svg class="i13" style="stroke:#F5B81C" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>28°C</div>
       <div class="cpill"><svg class="i13" viewBox="0 0 24 24"><path d="M3 3h18v4H3z"/><path d="M7 12h10M5 17h14"/></svg>Trânsito moderado</div>
@@ -58,7 +56,7 @@
   </div>
   <button class="gobtn" onclick="goPage('pg-resultado')">
     <svg class="i16" style="stroke:#fff" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    Vamo de quê? — ver opções
+    Vamo!
   </button>
 
   <div class="sec">Rotas salvas</div>
@@ -210,45 +208,43 @@
 <div class="page active" id="pg-perfil">
   <div class="ahdr">
     <div>
-      <img src="https://media.discordapp.net/attachments/1501646028716376094/1506338839235399811/icone-v1-light.png?ex=6a0de6dd&is=6a0c955d&hm=05986fb5d51dbe2aba18b218f0d4010579a82562542b4a464da0e0cdfc6fbf24&=&format=webp&quality=lossless&width=856&height=856" width="40" height="40">
+      <img id="profile-logo" src="icone-vlight-sf.png" width="40" height="40" alt="Vamo de que">
       <span class="logo-v" style="font-size:17px">Meu </span><span class="logo-q" style="font-size:17px">Perfil</span>
     </div>
     <div style="display:flex;gap:8px">
       <button class="ibtn" onclick="toggleDark()"><svg class="i19" id="dark-ic-prf" style="color:var(--text)" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     </div>
   </div>
-  <div class="phero" style="padding:14px 18px 12px;display:flex;align-items:center;gap:14px;">
+  <div class="phero" style="padding:14px 18px 12px;display:flex;align-items:center;gap:14px;border: 1px solid var(--bdr);border-radius: var(--r);margin: 1px 10px 1px;">
     <div class="pav" style="margin:0;width:50px;height:50px;flex-shrink:0"><svg class="i22" style="stroke:#fff" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
     <div>
       <div class="pname" style="font-size:16px">Olá! Configure seu perfil</div>
       <div class="psub" style="font-size:11px">Personalize seu deslocamento em Aracaju</div>
     </div>
   </div>
-  <div style="padding:10px 14px 4px">
+  <div style="padding:4px 14px 4px">
     <input class="pinput" id="p-nome" placeholder="Digite seu apelido">
   </div>
 
-  <div class="sec">Prioridade de deslocamento <span style="font-size:9px;color:var(--orange);text-transform:none;letter-spacing:0;margin-left:4px;font-weight:400">(selecione uma ou mais)</span></div>
   <div class="pchips" id="pchips">
+    <div class="budget-title">Prioridade de deslocamento</div>
     <div class="pchip on" dUNI-k="economia" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Economia</div>
     <div class="pchip" dUNI-k="tempo" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Tempo</div>
     <div class="pchip" dUNI-k="conforto" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Conforto</div>
     <div class="pchip" dUNI-k="acessivel" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 22V12M12 12l-4 4M12 12l4 4M8 8h8"/></svg>Acessível</div>
   </div>
-  <div class="pexpl vis" id="pexpl">💰 Prioriza o menor custo — ônibus e bike em primeiro lugar.</div>
 
-  <div class="sec">Modais que você usa</div>
   <div class="pchips" id="profile-modals">
+    <div class="budget-title">Modais que você usa</div> 
     <div class="pchip on" data-modal="bus" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 3v14M17 3v14M2 12h20"/></svg>Ônibus</div>
     <div class="pchip on" data-modal="car" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Uber/99</div>
-    <div class="pchip on" data-modal="proprio" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><path d="M1 3h15l3 5H1zM1 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="14.5" cy="18.5" r="2.5"/></svg>Carro próprio</div>
+    <div class="pchip on" data-modal="proprio" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><path d="M1 3h15l3 5H1zM1 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="14.5" cy="18.5" r="2.5"/></svg>Carro</div>
     <div class="pchip" data-modal="bike" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>Bike</div>
     <div class="pchip" data-modal="jet" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>Jet</div>
     <div class="pchip" data-modal="walk" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="4" r="1" fill="currentColor"/><path d="m6 12 2-2 2 2 2-5 2 3"/><path d="M10 14v5l-3 3"/><path d="m14 14 1 5 3 3"/></svg>A pé</div>
   </div>
 
   <!-- ORÇAMENTO MENSAL -->
-  <div class="sec">Orçamento mensal com locomoção</div>
   <div class="budget-card">
     <div class="budget-title">Quanto posso gastar por mês?</div>
     <div class="budget-sub">Arraste para definir seu limite mensal de transporte.</div>
@@ -297,7 +293,7 @@
     <div class="pitem">
       <div class="pico pico-y"><svg class="i19" style="stroke:#9A6500" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
       <div class="plbl">Modo escuro<small>Tema noturno do app</small></div>
-      <div class="tog off" id="pref-dark" onclick="toggleDark();this.classList.toggle('off')"></div>
+      <div class="tog off" id="pref-dark" onclick="toggleDark()"></div>
     </div>
   </div>
   <button class="savebtn" onclick="saveProfile()">Salvar perfil</button>
@@ -312,4 +308,3 @@
 <script src="app.js"></script>
 </body>
 </html>
-

@@ -38,7 +38,7 @@ html,body{height:100%;background:#111;display:flex;align-items:center;justify-co
 /* ─── HEADER ─── */
 .ahdr{background:var(--white);padding:13px 18px 11px;display:flex;align-items:center;
   justify-content:space-between;border-bottom:1px solid var(--bdr);flex-shrink:0;transition:background .3s;}
-.logo-v{font-size:22px;font-weight:900;color:var(--blue);}
+.logo-v{font-size:22px;font-weight:900;color:var(--text);}
 .logo-q{font-size:22px;font-weight:900;color:var(--orange);}
 .logo-s{font-size:9px;color:var(--sub);letter-spacing:1.5px;margin-top:1px;}
 .ibtn{width:38px;height:38px;border-radius:50%;background:var(--inp);border:none;
@@ -48,7 +48,7 @@ html,body{height:100%;background:#111;display:flex;align-items:center;justify-co
   display:flex;align-items:center;justify-content:center;border:2px solid var(--white);}
 /* ─── HERO ─── */
 .hero{background:var(--blue);padding:20px 18px 18px;}
-.hero-g{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:3px;}
+.hero-g{font-size:17px;color:rgba(255, 255, 255, 0.774);margin-bottom:3px;}
 .hero-n{font-size:26px;font-weight:900;line-height:1.1;}
 .hero-s{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;}
 .ctx-row{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
@@ -69,8 +69,8 @@ html,body{height:100%;background:#111;display:flex;align-items:center;justify-co
   padding:15px;color:#fff;font-size:15px;font-weight:700;width:calc(100% - 28px);cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;}
 /* ─── SAVED ROUTES ─── */
-.sec{font-size:11px;font-weight:600;color:var(--sub);letter-spacing:1.2px;
-  text-transform:uppercase;padding:14px 18px 6px;}
+.sec{font: size 15px;font-weight:640;color:var(--text);
+  text-transform:uppercase;padding:14px 16px 6px;}
 .sscroll{display:flex;gap:8px;overflow-x:auto;padding:0 14px 4px;scrollbar-width:none;}
 .sscroll::-webkit-scrollbar{display:none;}
 .rchip{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--rs);
@@ -198,12 +198,13 @@ html,body{height:100%;background:#111;display:flex;align-items:center;justify-co
   display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
 .pname{font-size:19px;font-weight:700;color:#fff;}
 .psub{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;}
-.pinput{width:100%;background:var(--inp);border:3px solid var(--blue);
+.pinput{width:100%;background:var(--inp);border:3px solid var(--sub);
   border-radius:var(--rs);padding:12px 14px;font-size:14px;color:var(--text);
   outline:none;transition:border-color .2s;}
 .pinput:focus{border-color:var(--orange);}
-.pchips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px;}
-.pchip{background:var(--inp);color:var(--sub);font-size:12px;font-weight:500;
+.pchips{display:flex;gap:10px;flex-wrap:wrap;padding:14px 14px 14px;border:1px solid var(--bdr);border-radius: var(--r);margin: 10px 10px 10px;background:var(--card);flex-direction:row;flex-wrap: wrap;}
+.pchips > .budget-title{flex:0 0 100%;}
+.pchip{background:var(--inp);color:var(--text);font-size:12px;font-weight:500;
   padding:8px 13px;border-radius:20px;cursor:pointer;border:2px solid transparent;
   display:flex;align-items:center;gap:5px;transition:all .15s;}
 .pchip.on{background:rgba(255,108,24,.1);color:var(--orange);border-color:var(--orange);}
@@ -280,13 +281,12 @@ svg.i26{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.75;s
 .logo-v,.logo-q{font-size:24px;}
 .logo-s{font-size:10px;}
 .ibtn.nb::after{font-size:10px;}
-.hero-g{font-size:15px;}
 .hero-n{font-size:30px;}
 .hero-s{font-size:14px;}
 .cpill{font-size:13px;}
 .si{font-size:16px;}
 .gobtn,.savebtn{font-size:16px;}
-.sec{font-size:13px;}
+.sec{font-size:15px;}
 .rchip-name{font-size:14px;}
 .rchip-sub{font-size:12px;}
 .mname{font-size:16px;}
