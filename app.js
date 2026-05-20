@@ -226,13 +226,17 @@ function toggleDark(){
 /* ── PRIORITY (multi-select) ── */
 var _prioTxt={
   economia:'💰 Prioriza o menor custo — ônibus e bike em primeiro lugar.',
-  tempo:'⚡ Prioriza a opção mais rápida, independente do preço.',
+  tempo:'⚡ Prioriza a opção mais rápida, independente dos outros.',
   conforto:'🛋️ Prioriza conforto — menos trocas e menos tempo em pé.',
   acessivel:'♿ Prioriza rotas acessíveis para mobilidade reduzida.',
-  carro:'🚗 Inclui opções de app de corrida (Uber, 99) nas sugestões.'
 };
+var _prioOrder=['economia'];
 function togglePrio(el){
   el.classList.toggle('on');
+  var key=el.dataset.k;
+  _prioOrder=_prioOrder.filter(function(k){return k!==key;});
+  if(el.classList.contains('on'))_prioOrder.push(key);
+
   var active=document.querySelectorAll('#pchips .pchip.on');
   var ex=document.getElementById('pexpl');
   if(active.length===0){
@@ -240,9 +244,8 @@ function togglePrio(el){
     ex.textContent='';
     return;
   }
-  var texts=[];
-  active.forEach(function(c){var t=_prioTxt[c.dUNIset.k];if(t)texts.push(t);});
-  ex.textContent=texts.join(' · ');
+  var lastKey=_prioOrder[_prioOrder.length-1];
+  ex.textContent=_prioTxt[lastKey]||'';
   ex.classList.add('vis');
 }
 /* legacy alias */

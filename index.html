@@ -208,14 +208,14 @@
 <div class="page active" id="pg-perfil">
   <div class="ahdr">
     <div>
-      <img id="profile-logo" src="icone-vlight-sf.png" width="40" height="40" alt="Vamo de que">
+      <img id="profile-logo" src="icone-vlight-sf.png" width="65" height="65" alt="Vamo de que">
       <span class="logo-v" style="font-size:17px">Meu </span><span class="logo-q" style="font-size:17px">Perfil</span>
     </div>
     <div style="display:flex;gap:8px">
       <button class="ibtn" onclick="toggleDark()"><svg class="i19" id="dark-ic-prf" style="color:var(--text)" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     </div>
   </div>
-  <div class="phero" style="padding:14px 18px 12px;display:flex;align-items:center;gap:14px;border: 1px solid var(--bdr);border-radius: var(--r);margin: 1px 10px 1px;">
+  <div class="phero" style="padding:14px 18px 12px;display:flex;align-items:center;gap:14px;border: 1px solid var(--bdr);border-radius: var(--r);margin: 10px 10px 10px;">
     <div class="pav" style="margin:0;width:50px;height:50px;flex-shrink:0"><svg class="i22" style="stroke:#fff" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
     <div>
       <div class="pname" style="font-size:16px">Olá! Configure seu perfil</div>
@@ -228,10 +228,11 @@
 
   <div class="pchips" id="pchips">
     <div class="budget-title">Prioridade de deslocamento</div>
-    <div class="pchip on" dUNI-k="economia" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Economia</div>
-    <div class="pchip" dUNI-k="tempo" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Tempo</div>
-    <div class="pchip" dUNI-k="conforto" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Conforto</div>
-    <div class="pchip" dUNI-k="acessivel" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 22V12M12 12l-4 4M12 12l4 4M8 8h8"/></svg>Acessível</div>
+    <div class="pchip on" data-k="economia" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Economia</div>
+    <div class="pchip" data-k="tempo" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Tempo</div>
+    <div class="pchip" data-k="conforto" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Conforto</div>
+    <div class="pchip" data-k="acessivel" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 22V12M12 12l-4 4M12 12l4 4M8 8h8"/></svg>Acessível</div>
+    <div class="pexpl vis" id="pexpl">💰 Prioriza o menor custo — ônibus e bike em primeiro lugar.</div>
   </div>
 
   <div class="pchips" id="profile-modals">
