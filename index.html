@@ -130,13 +130,13 @@
   <div class="ahdr">
     <button class="ibtn" onclick="goBack()"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
     <div><span class="logo-v" style="font-size:17px">Resultado </span><span class="logo-q" style="font-size:17px">da rota</span></div>
-    <button class="ibtn" onclick="goPage('pg-mapa')"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></button>
+    <button class="ibtn" onclick="openRouteMap()"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></button>
   </div>
 
   <div class="sec">Escolha seu modal<span style="font-size:9px;color:var(--orange);text-transform:none;letter-spacing:0;margin-left:4px;font-weight:400">(Clique duas vezes para selecionar)</span></div>
   <!-- 5 QUADRADOS CLICÁVEIS -->
   <div class="cgrid" id="cgrid" style="grid-template-columns:1fr 1fr;">
-    <div class="ccard sel" id="ccard-bus" data-modal="bus" onclick="selectModal('bus')" ondblclick="goPage('pg-mapa')">
+    <div class="ccard sel" id="ccard-bus" data-modal="bus" onclick="selectModal('bus')" ondblclick="openRouteMap('bus')">
       <div class="ccard-top">
         <div class="clbl clbl-b"><svg class="i13" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 3v14M17 3v14M2 12h20"/></svg>ÔNIBUS</div>
         <div class="ccheck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -154,7 +154,7 @@
       <div class="cprice">~R$ 15,00</div>
       <div class="ceco ecob"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>1.2kg CO₂</div>
     </div>
-    <div class="ccard" id="ccard-proprio" data-modal="proprio" onclick="selectModal('proprio')">
+    <div class="ccard" id="ccard-proprio" data-modal="proprio" onclick="selectModal('proprio')" ondblclick="openRouteMap('proprio')">
       <div class="ccard-top">
         <div class="clbl" style="color:#1D7D3E"><svg class="i13" viewBox="0 0 24 24"><path d="M1 3h15l3 5H1zM1 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="14.5" cy="18.5" r="2.5"/></svg>CARRO</div>
         <div class="ccheck"></div>

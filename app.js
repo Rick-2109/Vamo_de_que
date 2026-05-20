@@ -9,6 +9,7 @@
 var _stack=['pg-perfil'];
 var _bnMap={'pg-home':'bn-home','pg-resultado':'bn-res','pg-mapa':'bn-map','pg-perfil':'bn-prf'};
 var _mapReady=false;
+var _mapMode='bus';
 
 function goPage(id){
   var cur=_stack[_stack.length-1];
@@ -23,8 +24,18 @@ function goPage(id){
   if(id==='pg-resultado')applyResultModalFilter();
   if(id==='pg-mapa'){
     if(!_mapReady){_mapReady=true;setTimeout(initMap,200);}
-    else if(window._map){setTimeout(function(){window._map.invalidateSize();},200);}
+    else if(window._map){setTimeout(function(){window._map.invalidateSize();renderMapMode(_mapMode);},200);}
   }
+}
+
+function openRouteMap(mode){
+  if(mode)_mapMode=mode;
+  else{
+    var selected=document.querySelector('#cgrid .ccard.sel');
+    if(selected)_mapMode=selected.getAttribute('data-modal')||'bus';
+  }
+  goPage('pg-mapa');
+  if(window._map)setTimeout(function(){renderMapMode(_mapMode);},220);
 }
 
 function goBack(){
@@ -264,37 +275,57 @@ function saveProfile(){
 }
 
 /* ── MAP ── */
-function initMap(){
-  // Coords Aracaju
-  var ARA=[-10.9472,-37.0731];
-  var UNI=[-10.969585,-37.059124];
-  var TER=[-10.948453,-37.073924];
-  var USR=[-10.967245,-37.059651];
-  var AL1=[-10.946967,-37.063041];
-  var AL2=[-10.956530,-37.053551];
-  var STOPS=[
-    UNI,
+var _mapData={
+  ARA:[-10.9472,-37.0731],
+  UNI:[-10.969585,-37.059124],
+  TER:[-10.948453,-37.073924],
+  USR:[-10.967245,-37.059651],
+  busStops:[
+    [-10.969585,-37.059124],
     [-10.976445,-37.066719],
     [-10.975222,-37.074938],
     [-10.971678,-37.081820],
     [-10.966578,-37.079787],
-    TER
-  ];
+    [-10.948453,-37.073924]
+  ],
+  carStops:[
+    [-10.969585,-37.059124],
+    [-10.971945,-37.062992],
+    [-10.969069,-37.066275],
+    [-10.966457,-37.064976],
+    [-10.965225,-37.068667],
+    [-10.956124,-37.069386],
+    [-10.951468,-37.067004],
+    [-10.948498,-37.072755]
+  ],
+  alerts:[
+    {p:[-10.946967,-37.063041],icon:'!',bg:'#FF6C18',title:'Alagamento',body:'Av. Beira Mar',extra:'+15 min de atraso'},
+    {p:[-10.956530,-37.053551],icon:'Obra',bg:'#F5B81C',title:'Obras',body:'Av. Tancredo Neves',extra:'+7 min de atraso'}
+  ],
+  fuel:[
+    {p:[-10.970646,-37.056297],name:'Petrox',kind:'gas',info:'Gasolina, etanol e diesel'},
+    {p:[-10.963602,-37.069174],name:'Posto Petrobras',kind:'gas',info:'24h · conveniência'},
+    {p:[-10.946539,-37.063077],name:'Carregador BYD',kind:'charge',info:'Carregador rápido · 50 kW'},
+    {p:[-10.969095,-37.059981],name:'Eletroposto Unit',kind:'charge',info:'Carregador AC · 22 kW'}
+  ]
+};
+var _mapRouteLayer=null;
+var _mapMoveTimer=null;
+var _mapHelpers=null;
 
-  // Make sure the #map div has proper dimensions before init
+function initMap(){
   var mapEl=document.getElementById('map');
   mapEl.style.width='100%';
   mapEl.style.height='100%';
 
   var map=L.map('map',{
-    center:ARA,
+    center:_mapData.ARA,
     zoom:13,
     zoomControl:false,
     attributionControl:true
   });
   window._map=map;
 
-  // Tile layers
   var street=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom:19
@@ -306,65 +337,25 @@ function initMap(){
   });
 
   var isStreet=true;
+  _mapHelpers={
+    mk:function(html,w,h){
+      return L.divIcon({className:'',html:html,iconSize:[w,h],iconAnchor:[Math.round(w/2),Math.round(h/2)]});
+    },
+    pill:function(txt,bg,color){
+      return '<div style="background:'+bg+';color:'+color+';font-size:13px;font-weight:800;padding:6px 11px;border-radius:10px;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);white-space:nowrap;line-height:1.2;">'+txt+'</div>';
+    },
+    dot:function(txt,bg,color){
+      return '<div style="width:34px;height:34px;background:'+bg+';color:'+color+';border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;">'+txt+'</div>';
+    }
+  };
 
-  // Route polyline
-  L.polyline(STOPS,{color:'#FF6C18',weight:4,opacity:.9,dashArray:'10,7',lineCap:'round'}).addTo(map);
-
-  // Intermediate stops
-  STOPS.forEach(function(s,i){
-    if(i===0||i===STOPS.length-1)return;
-    L.circleMarker(s,{radius:5,color:'#FF6C18',fillColor:'#fff',fillOpacity:1,weight:2.5}).addTo(map);
-  });
-
-  // Helper: create div icon
-  function mk(html,w,h){
-    return L.divIcon({className:'',html:html,iconSize:[w,h],iconAnchor:[Math.round(w/2),Math.round(h/2)]});
-  }
-  function pill(txt,bg,color){
-    return '<div style="background:'+bg+';color:'+color+';font-size:13px;font-weight:800;padding:6px 11px;border-radius:10px;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);white-space:nowrap;line-height:1.2;">'+txt+'</div>';
-  }
-
-  // Terminals
-  L.marker(UNI,{icon:mk(pill('🚏 UNIT','#FF6C18','#fff'),80,32)})
-    .addTo(map).bindPopup('<b>UNIT</b><br>Partida linha 100 1 CS1');
-  L.marker(TER,{icon:mk(pill('🚏 TERMINAL D.I.A','#0B2D6A','#fff'),160,32)})
-    .addTo(map).bindPopup('<b>Terminal D.I.A</b><br>Destino final · Linha 100 1 CS1');
-
-  // User position
-  L.marker(USR,{icon:mk(
-    '<div style="width:22px;height:22px;background:#0B2D6A;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;">'+
-    '<div style="width:8px;height:8px;background:#fff;border-radius:50%;"></div></div>',22,22)})
-    .addTo(map).bindPopup('<b>Você está aqui</b><br>Localização atual');
-
-  // Alert markers
-  L.marker(AL1,{icon:mk(
-    '<div style="width:30px;height:30px;background:#FF6C18;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:16px;">⚠️</div>',30,30)})
-    .addTo(map).bindPopup('<b>Alagamento</b><br>Av. Beira Mar<br><span style="color:#FF6C18;font-weight:600">+15 min de atraso</span>');
-
-  L.marker(AL2,{icon:mk(
-    '<div style="width:30px;height:30px;background:#F5B81C;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:16px;">🚧</div>',30,30)})
-    .addTo(map).bindPopup('<b>Obras</b><br>Av. Tancredo Neves<br><span style="color:#9A6500;font-weight:600">+7 min de atraso</span>');
-
-  // Animated bus
-  var bi=0,bd=1;
-  var busM=L.marker(STOPS[0],{icon:mk(pill('🚌 100 1 CS1','#FF6C18','#fff'),120,32)}).addTo(map);
-  busM.bindPopup('<b>Ônibus 100 1 CS1</b><br>Em operação · 100% Elétrico<br>Chegada estimada: 27 min');
-  setInterval(function(){
-    bi+=bd;
-    if(bi>=STOPS.length-1)bd=-1;
-    if(bi<=0)bd=1;
-    bi=Math.max(0,Math.min(STOPS.length-1,bi));
-    busM.setLatLng(STOPS[bi]);
-  },2000);
-
-  // Controls
   document.getElementById('btn-loc').onclick=function(){
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(
         function(p){map.setView([p.coords.latitude,p.coords.longitude],15);},
-        function(){map.setView(ARA,14);}
+        function(){map.setView(_mapData.ARA,14);}
       );
-    } else {map.setView(ARA,14);}
+    } else {map.setView(_mapData.ARA,14);}
   };
   document.getElementById('btn-zi').onclick=function(){map.zoomIn();};
   document.getElementById('btn-zo').onclick=function(){map.zoomOut();};
@@ -379,7 +370,104 @@ function initMap(){
     isStreet=!isStreet;
   };
 
-  // Fit to route and force size
-  map.fitBounds(L.polyline(STOPS).getBounds(),{padding:[70,70]});
+  renderMapMode(_mapMode);
   setTimeout(function(){map.invalidateSize(true);},400);
+}
+
+function clearMapRouteLayer(){
+  if(_mapMoveTimer){
+    clearInterval(_mapMoveTimer);
+    _mapMoveTimer=null;
+  }
+  if(_mapRouteLayer&&window._map){
+    window._map.removeLayer(_mapRouteLayer);
+  }
+  _mapRouteLayer=L.layerGroup();
+  _mapRouteLayer.addTo(window._map);
+}
+
+function setMapSheet(mode){
+  var sheet=document.querySelector('#pg-mapa .msheet');
+  if(!sheet)return;
+  if(mode==='proprio'){
+    sheet.innerHTML='<div class="mhandle"></div>'+
+      '<div class="stitle">Rota de carro próprio</div>'+
+      '<div class="brow"><div class="btag" style="background:#1D7D3E">11 min</div><div class="bdesc">UNIT → Terminal D.I.A<small>Rota direta com postos no caminho</small></div><div class="beta">~R$ 12<small>Combustível</small></div></div>'+
+      '<div class="brow"><div class="btag" style="background:#FF6C18">POSTO</div><div class="bdesc">Posto de Gasolina<small>Gasolina, etanol e diesel</small></div><div class="beta">2 min<small>Da rota</small></div></div>'+
+      '<div class="brow"><div class="btag" style="background:#16A34A">EV</div><div class="bdesc">Eletroposto Unit<small>Carregador rápido · 50 kW</small></div><div class="beta">5 min<small>Da rota</small></div></div>';
+    return;
+  }
+  sheet.innerHTML='<div class="mhandle"></div>'+
+    '<div class="stitle">Linhas em tempo real</div>'+
+    '<div class="brow"><div class="btag">100 1 CS1</div><div class="bdesc">Atalaia ↔ Terminal D.I.A<small>Via José Carlos Silva</small></div><div class="beta">27 min<small>Próx: 32 min</small></div></div>'+
+    '<div class="brow"><div class="btag" style="background:var(--blue)">401</div><div class="bdesc">Unit ↔ Terminal D.I.A<small>Via Tancredo Neves</small></div><div class="beta">32 min<small>Próx: 44 min</small></div></div>'+
+    '<div class="brow"><div class="btag" style="background:var(--yellow);color:var(--blue)">720</div><div class="bdesc">Unit ↔ Centro<small>Via Josino José de Almeida</small></div><div class="beta">30 min<small>Próx: 28 min</small></div></div>';
+}
+
+function renderMapMode(mode){
+  if(!window._map||!_mapHelpers)return;
+  _mapMode=mode==='proprio'?'proprio':'bus';
+  clearMapRouteLayer();
+  setMapSheet(_mapMode);
+
+  var map=window._map;
+  var h=_mapHelpers;
+  var stops=_mapMode==='proprio'?_mapData.carStops:_mapData.busStops;
+  var color=_mapMode==='proprio'?'#1D7D3E':'#FF6C18';
+  var routeStyle={color:color,weight:4,opacity:.9,lineCap:'round'};
+  if(_mapMode==='bus')routeStyle.dashArray='10,7';
+
+  L.polyline(stops,routeStyle).addTo(_mapRouteLayer);
+  stops.forEach(function(s,i){
+    if(i===0||i===stops.length-1)return;
+    L.circleMarker(s,{radius:5,color:color,fillColor:'#fff',fillOpacity:1,weight:2.5}).addTo(_mapRouteLayer);
+  });
+
+  L.marker(stops[0],{icon:h.mk(h.pill(_mapMode==='proprio'?'UNIT':'UNIT',color,'#fff'),60,32)})
+    .addTo(_mapRouteLayer).bindPopup('<b>UNIT</b><br>Partida da rota');
+  L.marker(stops[stops.length-1],{icon:h.mk(h.pill('Teatro Tobias B.','#0B2D6A','#fff'),140,32)})
+    .addTo(_mapRouteLayer).bindPopup('<b>Terminal D.I.A</b><br>Destino final');
+
+  L.marker(_mapData.USR,{icon:h.mk(
+    '<div style="width:22px;height:22px;background:#0B2D6A;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;">'+
+    '<div style="width:8px;height:8px;background:#fff;border-radius:50%;"></div></div>',22,22)})
+    .addTo(_mapRouteLayer).bindPopup('<b>Você está aqui</b><br>Localização atual');
+
+  if(_mapMode==='proprio'){
+    _mapData.fuel.forEach(function(item){
+      var isCharge=item.kind==='charge';
+      var label=isCharge?'EV':'G';
+      var bg=isCharge?'#16A34A':'#FF6C18';
+      L.marker(item.p,{icon:h.mk(h.dot(label,bg,'#fff'),20,20)})
+        .addTo(_mapRouteLayer).bindPopup('<b>'+item.name+'</b><br>'+item.info);
+    });
+    var car=L.marker(stops[0],{icon:h.mk(h.pill('Carro próprio','#1D7D3E','#fff'),130,32)}).addTo(_mapRouteLayer);
+    car.bindPopup('<b>Carro próprio</b><br>Rota direta · Postos e carregadores no caminho');
+    var ci=0,cd=1;
+    _mapMoveTimer=setInterval(function(){
+      ci+=cd;
+      if(ci>=stops.length-1)cd=-1;
+      if(ci<=0)cd=1;
+      ci=Math.max(0,Math.min(stops.length-1,ci));
+      car.setLatLng(stops[ci]);
+    },2000);
+  } else {
+    _mapData.alerts.forEach(function(a){
+      L.marker(a.p,{icon:h.mk(h.dot(a.icon,a.bg,a.icon==='Obra'?'#0B2D6A':'#fff'),34,34)})
+        .addTo(_mapRouteLayer).bindPopup('<b>'+a.title+'</b><br>'+a.body+'<br><span style="color:#FF6C18;font-weight:600">'+a.extra+'</span>');
+    });
+    var bus=L.marker(stops[0],{icon:h.mk(h.pill('100 1 CS1','#FF6C18','#fff'),115,32)}).addTo(_mapRouteLayer);
+    bus.bindPopup('<b>Ônibus 100 1 CS1</b><br>Em operação · 100% elétrico<br>Chegada estimada: 27 min');
+    var bi=0,bd=1;
+    _mapMoveTimer=setInterval(function(){
+      bi+=bd;
+      if(bi>=stops.length-1)bd=-1;
+      if(bi<=0)bd=1;
+      bi=Math.max(0,Math.min(stops.length-1,bi));
+      bus.setLatLng(stops[bi]);
+    },2000);
+  }
+
+  map.fitBounds(L.polyline(stops).getBounds(),{padding:[70,70]});
+  setTimeout(function(){map.invalidateSize(true);},120);
 }
