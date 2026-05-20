@@ -204,6 +204,7 @@ html,body{height:100%;background:#111;display:flex;align-items:center;justify-co
 .pinput:focus{border-color:var(--orange);}
 .pchips{display:flex;gap:10px;flex-wrap:wrap;padding:14px 14px 14px;border:1px solid var(--bdr);border-radius: var(--r);margin: 10px 10px 10px;background:var(--card);flex-direction:row;flex-wrap: wrap;}
 .pchips > .budget-title{flex:0 0 100%;}
+.pchips > .pexpl{flex:0 0 100%;}
 .pchip{background:var(--inp);color:var(--text);font-size:12px;font-weight:500;
   padding:8px 13px;border-radius:20px;cursor:pointer;border:2px solid transparent;
   display:flex;align-items:center;gap:5px;transition:all .15s;}
