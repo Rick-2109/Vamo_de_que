@@ -225,10 +225,10 @@ function toggleDark(){
 
 /* ── PRIORITY (multi-select) ── */
 var _prioTxt={
-  economia:'💰 Prioriza o menor custo — ônibus e bike em primeiro lugar.',
-  tempo:'⚡ Prioriza a opção mais rápida, independente dos outros.',
-  conforto:'🛋️ Prioriza conforto — menos trocas e menos tempo em pé.',
-  acessivel:'♿ Prioriza rotas acessíveis para mobilidade reduzida.',
+  economia:'💰 Menores custos.',
+  tempo:'⚡ Opções mais rápidas.',
+  conforto:'🛋️ Maior conforto.',
+  acessivel:'♿ Opções acessíveis.',
 };
 var _prioOrder=['economia'];
 function togglePrio(el){
