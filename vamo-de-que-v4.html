@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Vamo de quê? — Aracaju</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div class="phone" id="phone">
+
+<!-- STATUS BAR -->
+<div class="sb" id="sbar">
+  <span class="sb-time" id="clk">9:41</span>
+  <div style="display:flex;gap:6px;align-items:center;">
+    <svg class="i16" style="color:var(--text)" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+    <svg class="i16" style="color:var(--text)" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2" stroke-width="2.5"/><rect x="4" y="9" width="12" height="6" rx="1" fill="currentColor" stroke="none"/></svg>
+  </div>
+</div>
+
+<div class="pages">
+
+<!-- ══════ HOME ══════ -->
+<div class="page" id="pg-home">
+  <div class="ahdr">
+    <div>
+      <img src="https://cdn.discordapp.com/attachments/1498827310273663120/1506370597771546744/logo-v1-day.png?ex=6a0e0471&is=6a0cb2f1&hm=6256669c9a1680494ea62ec562e7330841732ebd2ddb6c385612ebb719adb7b7&" width="100" height="50">
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="ibtn nb" onclick="goPage('pg-perfil')"><svg class="i19" style="color:var(--text)" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+      <button class="ibtn" onclick="toggleDark()"><svg class="i19" id="dark-ic" style="color:var(--text)" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <button class="ibtn" onclick="goPage('pg-perfil')"><svg class="i19" style="color:var(--text)" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="hero-g">Olá! Para onde vai hoje?</div>
+    <div class="hero-n"><span style="color:#9DC4FF">Vamo </span><span style="color:var(--orange)">de quê?</span></div>
+    <div class="hero-s">Conselheiro de deslocamento em Aracaju.</div>
+    <div class="ctx-row">
+      <div class="cpill"><svg class="i13" style="stroke:#F5B81C" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>28°C</div>
+      <div class="cpill"><svg class="i13" viewBox="0 0 24 24"><path d="M3 3h18v4H3z"/><path d="M7 12h10M5 17h14"/></svg>Trânsito moderado</div>
+      <div class="cpill"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Pico leve 18h</div>
+    </div>
+  </div>
+  <div class="scard">
+    <div class="srow">
+      <div class="dot doto"></div>
+      <input class="si" id="orig" placeholder="De onde você sai?" value="UNIT">
+      <button style="width:32px;height:32px;background:var(--inp);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;" onclick="swapInputs()">
+        <svg class="i14" style="color:var(--sub)" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      </button>
+    </div>
+    <div class="srow">
+      <div class="dot dotd"></div>
+      <input class="si" id="dest" placeholder="Para onde vai?" value="Teatro Tobias Barreto">
+    </div>
+  </div>
+  <button class="gobtn" onclick="goPage('pg-resultado')">
+    <svg class="i16" style="stroke:#fff" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Vamo de quê? — ver opções
+  </button>
+
+  <div class="sec">Rotas salvas</div>
+  <div class="cgrid">
+    <div class="rchip" onclick="fillRoute('Casa','Shopping Riomar')">
+      <div class="rchip-ico"><svg class="i13" style="stroke:var(--orange)" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div><div class="rchip-name">Casa → Shopping</div><div class="rchip-sub">18 min · R$ 4,50</div></div>
+    </div>
+    <div class="rchip" onclick="fillRoute('UNIT','Terminal Dia')">
+      <div class="rchip-ico"><svg class="i13" style="stroke:var(--orange)" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 3v14M17 3v14M2 12h20"/></svg></div>
+      <div><div class="rchip-name">UNIT → Terminal</div><div class="rchip-sub">100 1 CS1 · 27 min</div></div>
+    </div>
+    <div class="rchip" onclick="fillRoute('Casa','Unit')">
+      <div class="rchip-ico"><svg class="i13" style="stroke:var(--orange)" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg></div>
+      <div><div class="rchip-name">Casa → Unit</div><div class="rchip-sub">35 min · R$ 4,50</div></div>
+    </div>
+    <div class="rchip" onclick="saveCurrentRoute()">
+      <div class="rchip-ico"><svg class="i13" style="stroke:var(--orange)" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+      <div><div class="rchip-name">Nova rota</div><div class="rchip-sub">Salvar destino</div></div>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ══════ MAPA ══════ -->
+<div class="page" id="pg-mapa">
+  <div class="mapwrap" id="mapwrap">
+    <div id="map"></div>
+    <!-- overlay controls rendered after map init -->
+    <div id="mctrl-tl" style="position:absolute;top:16px;left:16px;z-index:1000;">
+      <button class="mback-btn" onclick="goBack()">
+        <svg class="i16" style="stroke:var(--text)" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Voltar
+      </button>
+    </div>
+    <div id="mctrl-tr" style="position:absolute;top:16px;right:16px;z-index:1000;display:flex;flex-direction:column;gap:8px;">
+      <button class="mfab" id="btn-loc"><svg class="i16" style="stroke:var(--orange)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+      <button class="mfab" id="btn-zi"><svg class="i16" style="stroke:var(--text)" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <button class="mfab" id="btn-zo"><svg class="i16" style="stroke:var(--text)" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+    </div>
+    <div style="position:absolute;bottom:250px;right:14px;z-index:1000;">
+      <button class="mlayer" id="btn-layer">
+        <svg class="i13" style="stroke:var(--orange)" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>Satélite
+      </button>
+    </div>
+    <div class="msheet">
+      <div class="mhandle"></div>
+      <div class="stitle">Linhas em tempo real</div>
+      <div class="brow">
+        <div class="btag">100 1 CS1</div>
+        <div class="bdesc">Atalaia ↔ Terminal D.I.A<small>Via José Carlos Silva</small></div>
+        <div class="beta">27 min<small>Próx: 32 min</small></div>
+      </div>
+      <div class="brow">
+        <div class="btag" style="background:var(--blue)">401</div>
+        <div class="bdesc">Unit ↔ Terminal D.I.A<small>Via Tancredo Neves</small></div>
+        <div class="beta">32 min<small>Próx: 44 min</small></div>
+      </div>
+      <div class="brow">
+        <div class="btag" style="background:var(--yellow);color:var(--blue)">720</div>
+        <div class="bdesc">Unit ↔ Centro<small>Via Josino José de Almeida</small></div>
+        <div class="beta">30 min<small>Próx: 28 min</small></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /mapa -->
+
+<!-- ══════ RESULTADO ══════ -->
+<div class="page" id="pg-resultado">
+  <div class="ahdr">
+    <button class="ibtn" onclick="goBack()"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div><span class="logo-v" style="font-size:17px">Resultado </span><span class="logo-q" style="font-size:17px">da rota</span></div>
+    <button class="ibtn" onclick="goPage('pg-mapa')"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></button>
+  </div>
+
+  <div class="sec">Escolha seu modal<span style="font-size:9px;color:var(--orange);text-transform:none;letter-spacing:0;margin-left:4px;font-weight:400">(Clique duas vezes para selecionar)</span></div>
+  <!-- 5 QUADRADOS CLICÁVEIS -->
+  <div class="cgrid" id="cgrid" style="grid-template-columns:1fr 1fr;">
+    <div class="ccard sel" id="ccard-bus" data-modal="bus" onclick="selectModal('bus')" ondblclick="goPage('pg-mapa')">
+      <div class="ccard-top">
+        <div class="clbl clbl-b"><svg class="i13" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 3v14M17 3v14M2 12h20"/></svg>ÔNIBUS</div>
+        <div class="ccheck"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="ctime">27 min</div>
+      <div class="cprice">R$ 4,50</div>
+      <div class="ceco ecog"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂</div>
+    </div>
+    <div class="ccard" id="ccard-car" data-modal="car" onclick="selectModal('car')">
+      <div class="ccard-top">
+        <div class="clbl clbl-c"><svg class="i13" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>UBER/99</div>
+        <div class="ccheck"></div>
+      </div>
+      <div class="ctime">15 min</div>
+      <div class="cprice">~R$ 15,00</div>
+      <div class="ceco ecob"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>1.2kg CO₂</div>
+    </div>
+    <div class="ccard" id="ccard-proprio" data-modal="proprio" onclick="selectModal('proprio')">
+      <div class="ccard-top">
+        <div class="clbl" style="color:#1D7D3E"><svg class="i13" viewBox="0 0 24 24"><path d="M1 3h15l3 5H1zM1 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="14.5" cy="18.5" r="2.5"/></svg>CARRO</div>
+        <div class="ccheck"></div>
+      </div>
+      <div class="ctime">11 min</div>
+      <div class="cprice">~R$ 12,00</div>
+      <div class="ceco ecob"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>1.0kg CO₂</div>
+    </div>
+    <div class="ccard" id="ccard-bike" data-modal="bike" onclick="selectModal('bike')">
+      <div class="ccard-top">
+        <div class="clbl clbl-k"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>BIKE</div>
+        <div class="ccheck"></div>
+      </div>
+      <div class="ctime">22 min</div>
+      <div class="cprice">Gratuito</div>
+      <div class="ceco ecog"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂</div>
+    </div>
+    <div class="ccard" id="ccard-jet" data-modal="jet" onclick="selectModal('jet')">
+      <div class="ccard-top">
+        <div class="clbl clbl-z"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>JET</div>
+        <div class="ccheck"></div>
+      </div>
+      <div class="ctime">18 min</div>
+      <div class="cprice">Gratuito</div>
+      <div class="ceco ecog"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂</div>
+    </div>
+    <div class="ccard" id="ccard-walk" data-modal="walk" onclick="selectModal('walk')">
+      <div class="ccard-top">
+        <div class="clbl clbl-w"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="4" r="1" fill="currentColor"/><path d="m6 12 2-2 2 2 2-5 2 3"/><path d="M10 14v5l-3 3"/><path d="m14 14 1 5 3 3"/></svg>A PÉ</div>
+        <div class="ccheck"></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-end;">
+        <div><div class="ctime">46 min</div><div class="cprice">Gratuito</div></div>
+        <div class="ceco ecog" style="margin-bottom:2px"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂ · Rota segura disponível</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-banner" id="no-modal-banner">
+    <div class="detail-title">Nenhum modal selecionado</div>
+    <div class="detail-body">Volte ao perfil e escolha pelo menos uma opcao de transporte para ver os resultados.</div>
+  </div>
+
+  <!-- DETAIL BANNER -->
+  <div class="detail-banner vis" id="detail-banner">
+    <div class="detail-title" id="detail-title">🚌 Ônibus 100 1 CS1 — RECOMENDADO</div>
+    <div class="detail-body" id="detail-body">Menor custo · 100% elétrico · Chegada em 27 min · Tarifa R$ 4,50 no Cartão Aracaju · Lotação média (confortável).</div>
+  </div>
+
+</div><!-- /resultado -->
+
+<!-- ══════ PERFIL ══════ -->
+<div class="page active" id="pg-perfil">
+  <div class="ahdr">
+    <div>
+      <img src="https://media.discordapp.net/attachments/1501646028716376094/1506338839235399811/icone-v1-light.png?ex=6a0de6dd&is=6a0c955d&hm=05986fb5d51dbe2aba18b218f0d4010579a82562542b4a464da0e0cdfc6fbf24&=&format=webp&quality=lossless&width=856&height=856" width="40" height="40">
+      <span class="logo-v" style="font-size:17px">Meu </span><span class="logo-q" style="font-size:17px">Perfil</span>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="ibtn" onclick="toggleDark()"><svg class="i19" id="dark-ic-prf" style="color:var(--text)" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+    </div>
+  </div>
+  <div class="phero" style="padding:14px 18px 12px;display:flex;align-items:center;gap:14px;">
+    <div class="pav" style="margin:0;width:50px;height:50px;flex-shrink:0"><svg class="i22" style="stroke:#fff" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    <div>
+      <div class="pname" style="font-size:16px">Olá! Configure seu perfil</div>
+      <div class="psub" style="font-size:11px">Personalize seu deslocamento em Aracaju</div>
+    </div>
+  </div>
+  <div style="padding:10px 14px 4px">
+    <input class="pinput" id="p-nome" placeholder="Digite seu apelido">
+  </div>
+
+  <div class="sec">Prioridade de deslocamento <span style="font-size:9px;color:var(--orange);text-transform:none;letter-spacing:0;margin-left:4px;font-weight:400">(selecione uma ou mais)</span></div>
+  <div class="pchips" id="pchips">
+    <div class="pchip on" dUNI-k="economia" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Economia</div>
+    <div class="pchip" dUNI-k="tempo" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Tempo</div>
+    <div class="pchip" dUNI-k="conforto" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Conforto</div>
+    <div class="pchip" dUNI-k="acessivel" onclick="togglePrio(this)"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 22V12M12 12l-4 4M12 12l4 4M8 8h8"/></svg>Acessível</div>
+  </div>
+  <div class="pexpl vis" id="pexpl">💰 Prioriza o menor custo — ônibus e bike em primeiro lugar.</div>
+
+  <div class="sec">Modais que você usa</div>
+  <div class="pchips" id="profile-modals">
+    <div class="pchip on" data-modal="bus" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 3v14M17 3v14M2 12h20"/></svg>Ônibus</div>
+    <div class="pchip on" data-modal="car" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>Uber/99</div>
+    <div class="pchip on" data-modal="proprio" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><path d="M1 3h15l3 5H1zM1 8v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="14.5" cy="18.5" r="2.5"/></svg>Carro próprio</div>
+    <div class="pchip" data-modal="bike" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>Bike</div>
+    <div class="pchip" data-modal="jet" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>Jet</div>
+    <div class="pchip" data-modal="walk" onclick="this.classList.toggle('on')"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="4" r="1" fill="currentColor"/><path d="m6 12 2-2 2 2 2-5 2 3"/><path d="M10 14v5l-3 3"/><path d="m14 14 1 5 3 3"/></svg>A pé</div>
+  </div>
+
+  <!-- ORÇAMENTO MENSAL -->
+  <div class="sec">Orçamento mensal com locomoção</div>
+  <div class="budget-card">
+    <div class="budget-title">Quanto posso gastar por mês?</div>
+    <div class="budget-sub">Arraste para definir seu limite mensal de transporte.</div>
+    <div class="budget-amount" id="bud-val">R$ 150,00</div>
+    <input type="range" class="budget-slider" id="bud-slider" min="20" max="600" step="10" value="150" oninput="updateBudget(this.value)">
+    <div class="budget-ticks">
+      <span class="budget-tick">R$ 20</span>
+      <span class="budget-tick">R$ 150</span>
+      <span class="budget-tick">R$ 300</span>
+      <span class="budget-tick">R$ 600</span>
+    </div>
+    <div class="budget-bar-wrap">
+      <div class="budget-bar-label">
+        <span>Gasto estimado este mês</span>
+        <span id="bud-spent">R$ 85,50</span>
+      </div>
+      <div class="budget-prog-bg">
+        <div class="budget-prog-fill" id="bud-fill" style="width:57%"></div>
+      </div>
+    </div>
+    <div class="budget-status ok" id="bud-status">✅ Dentro do orçamento — ainda sobram R$ 64,50</div>
+  </div>
+
+  <div class="sec">Preferências</div>
+  <div class="card">
+    <div class="pitem">
+      <div class="pico"><svg class="i19" style="stroke:var(--orange)" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="plbl">Alertas de rota<small>Notificar imprevistos</small></div>
+      <div class="tog" onclick="this.classList.toggle('off')"></div>
+    </div>
+    <div class="pitem">
+      <div class="pico pico-b"><svg class="i19" style="stroke:var(--blue)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+      <div class="plbl">Localização em tempo real<small>Para rastreio de ônibus</small></div>
+      <div class="tog" onclick="this.classList.toggle('off')"></div>
+    </div>
+    <div class="pitem">
+      <div class="pico pico-g"><svg class="i19" style="stroke:#16A34A" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg></div>
+      <div class="plbl">Priorizar opções verdes<small>Menos emissão de CO₂</small></div>
+      <div class="tog off" onclick="this.classList.toggle('off')"></div>
+    </div>
+    <div class="pitem">
+      <div class="pico pico-z"><svg class="i19" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="13 7 13 13 17 15"/></svg></div>
+      <div class="plbl">Histórico<small>Salvar histórico</small></div>   
+      <div class="tog off" onclick="this.classList.toggle('off')"></div>
+    </div>
+    <div class="pitem">
+      <div class="pico pico-y"><svg class="i19" style="stroke:#9A6500" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+      <div class="plbl">Modo escuro<small>Tema noturno do app</small></div>
+      <div class="tog off" id="pref-dark" onclick="toggleDark();this.classList.toggle('off')"></div>
+    </div>
+  </div>
+  <button class="savebtn" onclick="saveProfile()">Salvar perfil</button>
+  <div style="height:80px"></div>
+</div><!-- /perfil -->
+
+</div><!-- /pages -->
+
+</div><!-- /phone -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+
