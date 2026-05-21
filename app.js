@@ -30,10 +30,6 @@ function goPage(id){
 
 function openRouteMap(mode){
   if(mode)_mapMode=mode;
-  else{
-    var selected=document.querySelector('#cgrid .ccard.sel');
-    if(selected)_mapMode=selected.getAttribute('data-modal')||'bus';
-  }
   goPage('pg-mapa');
   if(window._map)setTimeout(function(){renderMapMode(_mapMode);},220);
 }
@@ -149,36 +145,17 @@ function applyResultModalFilter(){
   if(noModal)noModal.classList.remove('vis');
   if(detail)detail.classList.add('vis');
 
-  var selected=document.querySelector('#cgrid .ccard.sel:not(.is-hidden)');
   var firstVisible=document.querySelector('#cgrid .ccard:not(.is-hidden)');
-  if(selected){
-    selectModal(selected.getAttribute('data-modal'));
-  } else if(firstVisible){
-    selectModal(firstVisible.getAttribute('data-modal'));
-  }
+  if(firstVisible)updateModalDetails(firstVisible.getAttribute('data-modal'));
 }
 function setText(id,text){
   var el=document.getElementById(id);
   if(el)el.textContent=text||'';
 }
 
-function selectModal(key){
+function updateModalDetails(key){
   var picked=document.getElementById('ccard-'+key);
   if(picked&&picked.classList.contains('is-hidden'))return;
-  // toggle check marks
-  ['bus','car','proprio','bike','walk','jet'].forEach(function(k){
-    var el=document.getElementById('ccard-'+k);
-    if(!el)return;
-    var chk=el.querySelector('.ccheck');
-    if(k===key){
-      el.classList.add('sel');
-      chk.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    } else {
-      el.classList.remove('sel');
-      chk.innerHTML='';
-    }
-  });
-  // update detail
   var d=_modalDUNI[key];
   if(!d)return;
   setText('detail-title',d.title);
