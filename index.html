@@ -25,7 +25,7 @@
 <div class="page" id="pg-home">
   <div class="ahdr">
     <div>
-      <img id="home-logo" src="logo-vlight-sf.png" width="170" height="75" alt="Vamo de que">
+      <img id="home-logo" src="imagens/logo-vlight-sf.png" width="170" height="75" alt="Vamo de que">
     </div>
     <div style="display:flex;gap:8px">
       <button class="ibtn nb" onclick="goPage('pg-perfil')"><svg class="i19" style="color:var(--text)" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
@@ -143,10 +143,10 @@
       <div class="cprice">R$ 4,50</div>
       <div class="ceco ecog"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂</div>
     </div>
-    <div class="ccard" id="ccard-car" data-modal="car">
+    <div class="ccard" id="ccard-car" data-modal="car" onclick="goPage('pg-app-car')">
       <div class="ccard-top">
         <div class="clbl clbl-c"><svg class="i13" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>CARRO DE APLICATIVO</div>
-        <button class="ccheck" type="button" aria-label="Selecionar carro de aplicativo" aria-pressed="false" onclick="event.stopPropagation();selectModal('car')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="ccheck" type="button" aria-label="Selecionar carro de aplicativo" aria-pressed="false" onclick="event.stopPropagation();goPage('pg-app-car')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <div class="ctime">15 min</div>
       <div class="cprice">~R$ 15,00</div>
@@ -161,28 +161,28 @@
       <div class="cprice">~R$ 12,00</div>
       <div class="ceco ecob"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>1.0kg CO₂</div>
     </div>
-    <div class="ccard" id="ccard-bike" data-modal="bike">
+    <div class="ccard" id="ccard-bike" data-modal="bike" onclick="updateModalDetails('bike')">
       <div class="ccard-top">
         <div class="clbl clbl-k"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>BIKE</div>
-        <button class="ccheck" type="button" aria-label="Selecionar bike" aria-pressed="false" onclick="event.stopPropagation();selectModal('bike')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="ccheck" type="button" aria-label="Selecionar bike" aria-pressed="false" onclick="event.stopPropagation();updateModalDetails('bike')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <div class="ctime">22 min</div>
       <div class="cprice">Gratuito</div>
       <div class="ceco ecog"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂</div>
     </div>
-    <div class="ccard" id="ccard-Patinete" data-modal="Patinete">
+    <div class="ccard" id="ccard-Patinete" data-modal="Patinete" onclick="updateModalDetails('Patinete')">
       <div class="ccard-top">
         <div class="clbl clbl-z"><svg class="i13" viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6h-5l-3 6M8.5 17.5L12 8l2.5 5H18"/></svg>PATINETE</div>
-        <button class="ccheck" type="button" aria-label="Selecionar Patinete" aria-pressed="false" onclick="event.stopPropagation();selectModal('Patinete')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="ccheck" type="button" aria-label="Selecionar Patinete" aria-pressed="false" onclick="event.stopPropagation();updateModalDetails('Patinete')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <div class="ctime">18 min</div>
       <div class="cprice">Gratuito</div>
       <div class="ceco ecog"><svg class="i13" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.34A1 1 0 0 0 5 21C10 21 19 17 21 7c-1.4.49-2.8.92-4 1z"/></svg>0g CO₂</div>
     </div>
-    <div class="ccard" id="ccard-walk" data-modal="walk">
+    <div class="ccard" id="ccard-walk" data-modal="walk" onclick="updateModalDetails('walk')">
       <div class="ccard-top">
         <div class="clbl clbl-w"><svg class="i13" viewBox="0 0 24 24"><circle cx="12" cy="4" r="1" fill="currentColor"/><path d="m6 12 2-2 2 2 2-5 2 3"/><path d="M10 14v5l-3 3"/><path d="m14 14 1 5 3 3"/></svg>A PÉ</div>
-        <button class="ccheck" type="button" aria-label="Selecionar a pé" aria-pressed="false" onclick="event.stopPropagation();selectModal('walk')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="ccheck" type="button" aria-label="Selecionar a pé" aria-pressed="false" onclick="event.stopPropagation();updateModalDetails('walk')"><svg class="i13" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <div style="display:flex;gap:20px;align-items:flex-end;">
         <div><div class="ctime">46 min</div><div class="cprice">Gratuito</div></div>
@@ -204,11 +204,52 @@
 
 </div><!-- /resultado -->
 
+<!-- ══════ CARRO DE APLICATIVO ══════ -->
+<div class="page" id="pg-app-car">
+  <div class="ahdr">
+    <button class="ibtn" onclick="goBack()"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div><span class="logo-v" style="font-size:17px">Carro de </span><span class="logo-q" style="font-size:17px">aplicativo</span></div>
+    <button class="ibtn" onclick="goPage('pg-perfil')"><svg class="i19" style="stroke:var(--text)" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+  </div>
+
+  <div class="appcar-hero">
+    <div class="appcar-title">Escolha o aplicativo</div>
+    <div class="appcar-sub">Compare a melhor opção para sua corrida.</div>
+  </div>
+
+  <div class="app-options">
+    <button class="app-option" type="button" data-app="uber" onclick="selectRideApp(this,'Uber')">
+      <div class="app-brand app-brand-uber">Uber</div>
+      <div class="app-info">
+        <strong>Uber</strong>
+        <em class="app-price">~R$ 15,00</em>
+        <span>Estimativa: 15 min</span>
+      </div>
+      <svg class="i16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <button class="app-option" type="button" data-app="99" onclick="selectRideApp(this,'99')">
+      <div class="app-brand app-brand-99">99</div>
+      <div class="app-info">
+        <strong>99</strong>
+        <em class="app-price">~R$ 13,00</em>
+        <span>Estimativa: 17 min</span>
+      </div>
+      <svg class="i16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <div class="detail-banner vis" id="ride-app-detail">
+    <div class="detail-title">Nenhum aplicativo selecionado</div>
+    <div class="detail-body">Toque em Uber ou 99 para escolher a opção de carro de aplicativo.</div>
+  </div>
+</div><!-- /carro de aplicativo -->
+
 <!-- ══════ PERFIL ══════ -->
 <div class="page active" id="pg-perfil">
   <div class="ahdr">
     <div>
-      <img id="profile-logo" src="icone-vlight-sf.png" width="65" height="65" alt="Vamo de que">
+      <img id="profile-logo" src="imagens/icone-vlight-sf.png" width="65" height="65" alt="Vamo de que">
       <span class="logo-v" style="font-size:17px">Meu </span><span class="logo-q" style="font-size:17px">Perfil</span>
     </div>
     <div style="display:flex;gap:8px">
@@ -246,11 +287,18 @@
   </div>
 
   <!-- ORÇAMENTO MENSAL -->
-  <div class="budget-card">
-    <div class="budget-title">Quanto posso gastar por mês?</div>
-    <div class="budget-sub">Arraste para definir seu limite mensal de transporte.</div>
+  <div class="budget-card profile-budget">
+    <div class="budget-head">
+      <div class="budget-ico">
+        <svg class="i19" viewBox="0 0 24 24"><path d="M4 7a3 3 0 0 1 3-3h11v16H7a3 3 0 0 1-3-3z"/><path d="M18 8h-5a3 3 0 0 0 0 6h5"/><circle cx="13" cy="11" r="1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div>
+        <div class="budget-title">Orçamento mensal</div>
+        <div class="budget-sub">Limite mensal</div>
+      </div>
+    </div>
     <div class="budget-amount" id="bud-val">R$ 150,00</div>
-    <input type="range" class="budget-slider" id="bud-slider" min="20" max="600" step="10" value="150" oninput="updateBudget(this.value)">
+    <input type="range" class="budget-slider" id="bud-slider" min="20" max="600" step="10" value="150" style="--budget-pct:25%" oninput="updateBudget(this.value)">
     <div class="budget-ticks">
       <span class="budget-tick">R$ 20</span>
       <span class="budget-tick">R$ 200</span>
@@ -262,11 +310,46 @@
         <span>Gasto estimado este mês</span>
         <span id="bud-spent">R$ 85,50</span>
       </div>
-      <div class="budget-prog-bg">
-        <div class="budget-prog-fill" id="bud-fill" style="width:57%"></div>
-      </div>
     </div>
-    <div class="budget-status ok" id="bud-status">✅ Dentro do orçamento — ainda sobram R$ 64,50</div>
+    <div class="budget-status ok" id="bud-status">
+      <svg class="i16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Dentro do orçamento — ainda restam R$ 64,50
+    </div>
+  </div>
+
+  <div class="savings-card">
+    <div class="savings-ico">
+      <svg class="i22" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/><path d="M19 4v2M22 7h-2M5 20v-2M2 17h2"/></svg>
+    </div>
+    <div class="savings-copy">
+      <strong>Você economizou <span>R$ 27,40</span> este mês</strong>
+      <small>com base nas recomendações escolhidas.</small>
+    </div>
+  </div>
+
+  <div class="usage-card">
+    <div class="budget-title">Resumo de uso</div>
+    <div class="usage-item">
+      <div class="usage-ico usage-ico-o">
+        <svg class="i19" viewBox="0 0 24 24"><path d="M4 14v5"/><path d="M8 10v9"/><path d="M12 5v14"/><path d="M16 8v11"/><path d="M20 3v16"/></svg>
+      </div>
+      <div class="usage-label">Consultas no mês</div>
+      <strong>12</strong>
+    </div>
+    <div class="usage-item">
+      <div class="usage-ico usage-ico-b">
+        <svg class="i19" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M7 18v2M17 18v2M8 7h8M8 12h8"/><circle cx="8" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div class="usage-label">Modal mais escolhido</div>
+      <strong>Ônibus</strong>
+    </div>
+    <div class="usage-item">
+      <div class="usage-ico usage-ico-r">
+        <svg class="i19" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12l4 4v8a2 2 0 0 1-2 2h-1"/><circle cx="7" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg>
+      </div>
+      <div class="usage-label">Opção evitada por custo</div>
+      <strong>Carro de aplicativo</strong>
+    </div>
   </div>
 
   <div class="sec">Preferências</div>

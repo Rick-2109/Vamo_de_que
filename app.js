@@ -109,11 +109,12 @@ var _modalDUNI={
     chegada:'9 min',prox:'Sem espera',lot:'Livre',lot2:'Estacionamento OK',tarifa:'~R$ 8,00',tar2:'Combustível',
     buy:'Ver rota de carro'
   },
-  jet:{
-    title:'🛴 Jet',
-    body:'Aplitativo JET · Zero emissão · Cicloviário disponível · Chegada em 18 min · 0kg de CO₂.',
-    num:'JET',route:'JET',tag:'ZERO ENISSÂO',
-    chegada:'18 min',prox:'Sem espera',lot:'Livre',lot2:'Estacionamento OK',tarifa:'Aplicativo',tar2:'Aplicativo'
+  Patinete:{
+    title:'🛴 Patinete — Zero emissão',
+    body:'Aplicativo de patinete · Zero emissão · Cicloviário disponível · Chegada em 18 min · 0kg de CO₂.',
+    num:'PAT',route:'PATINETE',tag:'ZERO EMISSÃO',
+    chegada:'18 min',prox:'Sem espera',lot:'Livre',lot2:'Patinete disponível',tarifa:'Aplicativo',tar2:'Cobrança pelo app',
+    buy:'Abrir aplicativo'
   }
 };
 
@@ -173,13 +174,31 @@ function updateModalDetails(key){
   setText('buy-label',d.buy);
 }
 
+function selectRideApp(button,name){
+  document.querySelectorAll('.app-option').forEach(function(opt){
+    opt.classList.remove('selected');
+  });
+  button.classList.add('selected');
+
+  var detail=document.getElementById('ride-app-detail');
+  if(!detail)return;
+  var title=detail.querySelector('.detail-title');
+  var body=detail.querySelector('.detail-body');
+  if(title)title.textContent=name+' selecionado';
+  if(body){
+    body.textContent=name==='Uber'
+      ? 'Uber escolhido para esta rota · estimativa de 15 min · valor aproximado de R$ 15,00.'
+      : '99 escolhido para esta rota · estimativa de 17 min · valor aproximado de R$ 13,00.';
+  }
+}
+
 /* ── DARK MODE ── */
 var _dark=false;
 function updateThemeAssets(){
   var homeLogo=document.getElementById('home-logo');
   var profileLogo=document.getElementById('profile-logo');
-  if(homeLogo)homeLogo.src=_dark?'logo-vdark-sf.png':'logo-vlight-sf.png';
-  if(profileLogo)profileLogo.src=_dark?'icone-vdark-sf.png':'icone-vlight-sf.png';
+  if(homeLogo)homeLogo.src=_dark?'imagens/logo-vdark-sf.png':'imagens/logo-vlight-sf.png';
+  if(profileLogo)profileLogo.src=_dark?'imagens/icone-vdark-sf.png':'imagens/icone-vlight-sf.png';
 }
 function toggleDark(){
   _dark=!_dark;
@@ -232,20 +251,26 @@ function selPrio(el){togglePrio(el);}
 var _spent=85.50;
 function updateBudget(val){
   val=parseInt(val);
+  if(isNaN(val)) val=0;
   document.getElementById('bud-val').textContent='R$ '+val.toFixed(2).replace('.',',');
-  var pct=Math.min(100,Math.round((_spent/val)*100));
-  document.getElementById('bud-fill').style.width=pct+'%';
+  var slider=document.getElementById('bud-slider');
+  var max=parseInt(slider.getAttribute('max'))||150;
+  slider.style.setProperty('--budget-pct',Math.min(100,Math.max(0,Math.round((val/max)*100)))+'%');
+  var pct=val>0?Math.min(100,Math.round((_spent/val)*100)):100;
+  var fill=document.getElementById('bud-fill');
+  if(fill) fill.style.width=pct+'%';
   var left=val-_spent;
   var st=document.getElementById('bud-status');
+  function setBudgetStatus(cls,msg){
+    st.className='budget-status '+cls;
+    st.innerHTML='<svg class="i16" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'+msg;
+  }
   if(pct<70){
-    st.className='budget-status ok';
-    st.textContent='✅ Dentro do orçamento — ainda sobram R$ '+left.toFixed(2).replace('.',',');
+    setBudgetStatus('ok','Dentro do orçamento — ainda restam R$ '+left.toFixed(2).replace('.',','));
   } else if(pct<100){
-    st.className='budget-status warn';
-    st.textContent='⚠️ Atenção — apenas R$ '+left.toFixed(2).replace('.',',')+' restantes';
+    setBudgetStatus('warn','Atenção — apenas R$ '+left.toFixed(2).replace('.',',')+' restantes');
   } else {
-    st.className='budget-status over';
-    st.textContent='❌ Orçamento excedido em R$ '+Math.abs(left).toFixed(2).replace('.',',');
+    setBudgetStatus('over','Orçamento excedido em R$ '+Math.abs(left).toFixed(2).replace('.',','));
   }
 }
 
